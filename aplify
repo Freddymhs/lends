@@ -1,10 +1,12 @@
 - instalar y configurar AWs amplify
 
 npm install -g @aws-amplify/cli
-amplify configure  # Sigue los pasos para configurar tu cuenta de AWS
+amplify configure  # Sigue los pasos para configurar tu cuenta de AWS [LOCAL] (cuenta+users+permisos) ya que esta opcion entrega clave aceso y clave secreta
 cd tu_proyecto_expo
-amplify init
+amplify init -> AWS PROFILE ya que esta configurada esta previamente en configuracion
 
+
+//////////////////////////////////////////////////////////////////////////////////////////
 - Agregar auth de google
 
 amplify add auth
