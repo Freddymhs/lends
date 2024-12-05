@@ -1,0 +1,46 @@
+- instalar y configurar AWs amplify
+
+npm install -g @aws-amplify/cli
+amplify configure  # Sigue los pasos para configurar tu cuenta de AWS
+cd tu_proyecto_expo
+amplify init
+
+- Agregar auth de google
+
+amplify add auth
+# Selecciona "Default configuration"
+# Elige "Sign in with Google" como proveedor
+
+- Agregar BD en tiempo real 
+
+amplify add api
+# Elige "Amazon AppSync GraphQL API"
+# Selecciona "Amazon DynamoDB"
+# Configura tus modelos de datos
+
+- instalar dependencias de amplify requeridas
+
+npm install aws-amplify @aws-amplify/auth @aws-amplify/api
+
+- configurar amplify en el proyecto
+
+import { Amplify } from 'aws-amplify';
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
+
+- implementar login aws amplify 
+import { Auth } from 'aws-amplify';
+
+const signInWithGoogle = async () => {
+  try {
+    const user = await Auth.federatedSignIn({ provider: 'Google' });
+    // Maneja el login exitoso
+  } catch (error) {
+    console.error('Error en el login', error);
+  }
+};
+
+- desplegar recursos de aws
+amplify push
+amplify publish
+
