@@ -1,0 +1,75 @@
+1. Instalación de dependencias
+
+npm install nativewind tailwindcss react-native-reanimated react-native-safe-area-context
+
+2. Configuración de TailwindCSS (tailwind.config.js)
+
+npx tailwindcss init
+
+
+Verifica que tu archivo tailwind.config.js se vea así:
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+    content: ["./app/**/*.{js,jsx,ts,tsx}"],  // Asegúrate de que esté apuntando a tus archivos
+    presets: [require("nativewind/preset")],
+    theme: {
+      extend: {},
+    },
+    plugins: [],
+  };
+
+3. creando global.CSS
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+4. babel 
+module.exports = function (api) {
+    api.cache(true);
+    return {
+      presets: [
+        ["babel-preset-expo", { jsxImportSource: "nativewind" }],
+        "nativewind/babel",  // Asegúrate de tener este preset
+      ],
+    };
+  };
+
+5. metro config
+Si no tienes el archivo metro.config.js, ejecuta:
+```
+npx expo customize metro.config.js
+
+```
+
+configurarlo:
+```
+const { getDefaultConfig } = require("expo/metro-config");
+const { withNativeWind } = require("nativewind/metro");
+
+const config = getDefaultConfig(__dirname);
+
+module.exports = withNativeWind(config, { input: "./global.css" });
+
+```
+Si ya tienes metro.config.js, revisa si la ruta del archivo global.css es la correcta.
+
+
+6. Importación del archivo global.css
+
+import "../global.css";  // Asegúrate de que la ruta sea correcta
+
+7. Uso de clases de Tailwind en los componentes
+
+import { View, Text } from "react-native";
+
+export default function HomeScreen() {
+  return (
+    <View className="flex-1 items-center justify-center bg-blue-50">
+      <Text className="text-2xl font-bold text-blue-600">
+        ¡Hola, NativeWind!
+      </Text>
+    </View>
+  );
+}
